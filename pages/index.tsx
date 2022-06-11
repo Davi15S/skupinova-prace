@@ -19,7 +19,7 @@ const Home: NextPage = () => {
   return (
     <div>
       {loading ? (
-        <div></div>
+        <div>Loading</div>
       ) : (
         <div className="mainscreen">
           <div className="image w-full justify-center items-center flex relative h-[589px]">
