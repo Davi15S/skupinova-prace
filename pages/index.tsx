@@ -16,12 +16,6 @@ const Home: NextPage = () => {
   const queryResponse = useGetPostsQuery();
   const { data, loading, error } = queryResponse;
 
-  const {
-    data: dataCategories,
-    loading: loadingCategories,
-    error: errorCategories,
-  } = useGetCategoriesQuery();
-
   return (
     <div className="mainscreen">
       <div className="image w-full justify-center items-center flex relative h-[589px]">

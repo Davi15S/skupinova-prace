@@ -1,16 +1,14 @@
-query getPosts {
+query GetPosts {
   posts {
-    pageInfo {
-      hasNextPage
-      endCursor
-    }
-    edges {
-      node {
-        id
-        databaseId
-        title
-        slug
-        authorId
+    nodes {
+      id
+      slug
+      title
+      content
+      featuredImage {
+        node {
+          sourceUrl
+        }
       }
     }
   }
