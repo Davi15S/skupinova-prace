@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   return (
     <div>
       {loading ? (
-        <h1>Ahoj</h1>
+        <h1>Loading</h1>
       ) : (
         <div>
           {data?.posts?.nodes?.map((item) => (
