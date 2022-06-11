@@ -1,9 +1,8 @@
-query getCategories {
+query GetCategories {
   categories {
     nodes {
       id
       name
-      slug
     }
   }
 }

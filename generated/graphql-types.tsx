@@ -7669,7 +7669,6 @@ export type GetCategoriesQuery = {
       __typename?: "Category";
       id: string;
       name?: string | null;
-      slug?: string | null;
     } | null> | null;
   } | null;
 };
@@ -7680,32 +7679,26 @@ export type GetPostsQuery = {
   __typename?: "RootQuery";
   posts?: {
     __typename?: "RootQueryToPostConnection";
-    pageInfo?: {
-      __typename?: "WPPageInfo";
-      hasNextPage: boolean;
-      endCursor?: string | null;
-    } | null;
-    edges?: Array<{
-      __typename?: "RootQueryToPostConnectionEdge";
-      node?: {
-        __typename?: "Post";
-        id: string;
-        databaseId: number;
-        title?: string | null;
-        slug?: string | null;
-        authorId?: string | null;
+    nodes?: Array<{
+      __typename?: "Post";
+      id: string;
+      slug?: string | null;
+      title?: string | null;
+      content?: string | null;
+      featuredImage?: {
+        __typename?: "NodeWithFeaturedImageToMediaItemConnectionEdge";
+        node?: { __typename?: "MediaItem"; sourceUrl?: string | null } | null;
       } | null;
     } | null> | null;
   } | null;
 };
 
 export const GetCategoriesDocument = gql`
-  query getCategories {
+  query GetCategories {
     categories {
       nodes {
         id
         name
-        slug
       }
     }
   }
@@ -7761,19 +7754,17 @@ export type GetCategoriesQueryResult = Apollo.QueryResult<
   GetCategoriesQueryVariables
 >;
 export const GetPostsDocument = gql`
-  query getPosts {
+  query GetPosts {
     posts {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          id
-          databaseId
-          title
-          slug
-          authorId
+      nodes {
+        id
+        slug
+        title
+        content
+        featuredImage {
+          node {
+            sourceUrl
+          }
         }
       }
     }
