@@ -7659,6 +7659,36 @@ export type WritingSettings = {
   useSmilies?: Maybe<Scalars["Boolean"]>;
 };
 
+export type GetArticleQueryVariables = Exact<{
+  slug: Scalars["String"];
+}>;
+
+export type GetArticleQuery = {
+  __typename?: "RootQuery";
+  postBy?: {
+    __typename?: "Post";
+    content?: string | null;
+    date?: string | null;
+    id: string;
+    title?: string | null;
+    author?: {
+      __typename?: "NodeWithAuthorToUserConnectionEdge";
+      node?: { __typename?: "User"; name?: string | null } | null;
+    } | null;
+    categories?: {
+      __typename?: "PostToCategoryConnection";
+      nodes?: Array<{
+        __typename?: "Category";
+        name?: string | null;
+      } | null> | null;
+    } | null;
+    featuredImage?: {
+      __typename?: "NodeWithFeaturedImageToMediaItemConnectionEdge";
+      node?: { __typename?: "MediaItem"; sourceUrl?: string | null } | null;
+    } | null;
+  } | null;
+};
+
 export type GetCategoriesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCategoriesQuery = {
@@ -7693,6 +7723,80 @@ export type GetPostsQuery = {
   } | null;
 };
 
+export const GetArticleDocument = gql`
+  query GetArticle($slug: String!) {
+    postBy(slug: $slug) {
+      author {
+        node {
+          name
+        }
+      }
+      content
+      date
+      id
+      title
+      categories {
+        nodes {
+          name
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetArticleQuery__
+ *
+ * To run a query within a React component, call `useGetArticleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetArticleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetArticleQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useGetArticleQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetArticleQuery,
+    GetArticleQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetArticleQuery, GetArticleQueryVariables>(
+    GetArticleDocument,
+    options
+  );
+}
+export function useGetArticleLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetArticleQuery,
+    GetArticleQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetArticleQuery, GetArticleQueryVariables>(
+    GetArticleDocument,
+    options
+  );
+}
+export type GetArticleQueryHookResult = ReturnType<typeof useGetArticleQuery>;
+export type GetArticleLazyQueryHookResult = ReturnType<
+  typeof useGetArticleLazyQuery
+>;
+export type GetArticleQueryResult = Apollo.QueryResult<
+  GetArticleQuery,
+  GetArticleQueryVariables
+>;
 export const GetCategoriesDocument = gql`
   query GetCategories {
     categories {
