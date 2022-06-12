@@ -1,4 +1,4 @@
-import React, { SetStateAction, useEffect, useState } from "react";
+import React from "react";
 import CategoriesItem from "../components/CategoriesItem";
 import { useGetCategoriesQuery } from "../generated/graphql-types";
 
